@@ -104,6 +104,8 @@ const updateLeave = async (req, res) => {
     }
     return res.status(200).json({ success: true, message: "update success" });
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({ success: true, error: error.message });
   }
 };
