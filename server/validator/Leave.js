@@ -4,7 +4,7 @@ const addLeaveSchema = joi.object({
   leaveType: joi
     .string()
     .valid("Sick Leave", "Casual Leave", "Annual Leave")
-    .required(), // tuỳ chỉnh theo loại nghỉ phép bạn hỗ trợ
+    .required(),
   startDate: joi.date().required(),
   endDate: joi.date().min(joi.ref("startDate")).required(),
   reason: joi.string().min(3).required(),

@@ -1,8 +1,16 @@
 import joi from "joi";
 const addEmployeeSchema = joi.object({
-  name: joi.string().min(2).max(100).required(),
+  name: joi
+    .string()
+    .pattern(/^[a-zA-Z0-9\s]+$/)
+    .min(2)
+    .max(100)
+    .required(),
   email: joi.string().email().required(),
-  employeeId: joi.string().required(),
+  employeeId: joi
+    .string()
+    .pattern(/^[a-zA-Z0-9\s]+$/)
+    .required(),
   dob: joi.date().less("now").required(),
   gender: joi.string().valid("male", "female", "other").required(),
   maritalStatus: joi

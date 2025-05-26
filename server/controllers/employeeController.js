@@ -149,6 +149,34 @@ const getEmployeeByDepId = async (req, res) => {
     return res.status(500).json({ success: false, error: "failed" });
   }
 };
+const deleteEmployeeById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const employee = await Employee.findById(id);
+    await employee.deleteOne();
+    return res.status(200).json({ success: true, message: "success" });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: "failed" });
+  }
+};
+const updateImage = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const employee = await Employee.findById(id);
+    const updateUser = await User.findByIdAndUpdate(
+      { _id: employee.userId },
+      { profileImage: req.file ? req.file.filename : "" }
+    );
+    if (!updateUser) {
+      console.log("update failed");
+
+      return res.status(404).json({ success: false, error: "failed" });
+    }
+    return res.status(200).json({ success: true, message: "success update" });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: "failed" });
+  }
+};
 export {
   addEmployee,
   upload,
@@ -156,4 +184,6 @@ export {
   getEmployeesById,
   updateEmployee,
   getEmployeeByDepId,
+  updateImage,
+  deleteEmployeeById,
 };
